@@ -11,12 +11,24 @@
         <div class="relative about-media-wrap">
           <div class="relative rounded-lg overflow-hidden about-media-shell">
             <video
-              src="/videos/about.mp4"
+              v-if="shouldLoadVideo"
               autoplay
               loop
               muted
               playsinline
-              preload="metadata"
+              preload="none"
+              poster="/images/about.jpg"
+              class="w-full aspect-[4/3] object-cover about-media"
+            >
+              <source src="/videos/about-mobile.mp4" media="(max-width: 768px)" type="video/mp4" />
+              <source src="/videos/about.mp4" type="video/mp4" />
+            </video>
+            <img
+              v-else
+              src="/images/about.jpg"
+              alt="Зал Академии Кикбоксинга"
+              loading="lazy"
+              decoding="async"
               class="w-full aspect-[4/3] object-cover about-media"
             />
           </div>
@@ -73,13 +85,15 @@
 </template>
 
 <script setup>
-import { h } from 'vue'
+import { h, onMounted, onUnmounted, ref } from 'vue'
 import { useSectionReveal } from '../composables/useSectionReveal'
 
 const { sectionRef, isVisible } = useSectionReveal({
   threshold: 0.12,
   rootMargin: '0px 0px -4% 0px',
 })
+const shouldLoadVideo = ref(true)
+let mediaObserver = null
 
 const IconShield = {
   render() {
@@ -129,6 +143,32 @@ const features = [
   { title: 'Детские группы', desc: 'Занятия для детей от 6 лет', icon: IconUsers },
   { title: 'Соревнования', desc: 'Регулярное участие в турнирах', icon: IconTrophy },
 ]
+
+onMounted(() => {
+  const isMobile = window.matchMedia('(max-width: 768px)').matches
+  if (!isMobile) return
+
+  shouldLoadVideo.value = false
+
+  mediaObserver = new IntersectionObserver(([entry]) => {
+    if (!entry?.isIntersecting) return
+    shouldLoadVideo.value = true
+    mediaObserver?.disconnect()
+    mediaObserver = null
+  }, {
+    threshold: 0.01,
+    rootMargin: '220px 0px',
+  })
+
+  if (sectionRef.value) {
+    mediaObserver.observe(sectionRef.value)
+  }
+})
+
+onUnmounted(() => {
+  mediaObserver?.disconnect()
+  mediaObserver = null
+})
 
 </script>
 
