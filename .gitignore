@@ -8,3 +8,8 @@ node_modules/
 .next/
 .env*.local
 .DS_Store
+
+# Local heavy source assets (not needed in web build)
+public/images/gallery-source/
+public/videos/optimized/*-balanced.mp4
+public/videos/optimized/video-[0-9].mp4
