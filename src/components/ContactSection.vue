@@ -141,13 +141,45 @@
             />
           </div>
 
+          <div class="flex flex-col gap-2 rounded-lg border border-white/10 bg-surface/70 p-3 sm:p-4">
+            <label
+              for="privacy-consent"
+              class="flex items-start gap-3 text-xs sm:text-sm text-white/55 leading-relaxed cursor-pointer"
+            >
+              <input
+                id="privacy-consent"
+                v-model="form.privacyAccepted"
+                type="checkbox"
+                required
+                class="mt-0.5 h-4 w-4 sm:h-5 sm:w-5 accent-red-500 cursor-pointer shrink-0"
+              >
+              <span>
+                Я согласен(а) на обработку персональных данных и ознакомлен(а) с
+                <a
+                  href="/privacy"
+                  class="text-brand underline underline-offset-4 hover:text-brand-light transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Политикой в отношении обработки персональных данных
+                </a>.
+              </span>
+            </label>
+          </div>
+
           <p v-if="submitError" class="text-red-400 text-sm mt-1">{{ submitError }}</p>
           <p v-else-if="submitSuccess" class="text-emerald-400 text-sm mt-1">Заявка отправлена!</p>
           <button
             type="submit"
             class="btn-primary w-full justify-center mt-2"
-            :class="(submitted || submitSuccess) ? 'bg-emerald-600 hover:bg-emerald-600' : ''"
-            :disabled="submitted"
+            :class="[
+              (submitted || submitSuccess) ? 'bg-emerald-600 hover:bg-emerald-600' : '',
+              (submitted || !form.privacyAccepted)
+                ? 'opacity-60 cursor-not-allowed hover:bg-brand pointer-events-none'
+                : '',
+            ]"
+            :disabled="submitted || !form.privacyAccepted"
+            :aria-disabled="submitted || !form.privacyAccepted"
           >
             {{ submitSuccess ? 'Заявка отправлена!' : submitted ? 'Отправка...' : 'Отправить заявку' }}
           </button>
@@ -172,6 +204,7 @@ const form = reactive({
   email: '',
   group: '',
   message: '',
+  privacyAccepted: false,
 })
 
 const contactInfo = [
@@ -194,6 +227,12 @@ const contactInfo = [
 
 async function handleSubmit() {
   submitError.value = ''
+
+  if (!form.privacyAccepted) {
+    submitError.value = 'Подтвердите согласие на обработку персональных данных.'
+    return
+  }
+
   submitted.value = true
   try {
     const apiBase = import.meta.env.VITE_TELEGRAM_API_URL || ''
@@ -217,6 +256,7 @@ async function handleSubmit() {
     form.email = ''
     form.group = ''
     form.message = ''
+    form.privacyAccepted = false
     submitSuccess.value = true
     setTimeout(() => { submitSuccess.value = false }, 3000)
   } catch (e) {

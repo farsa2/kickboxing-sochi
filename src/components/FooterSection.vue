@@ -1,7 +1,7 @@
 <template>
   <footer class="border-t border-white/5 bg-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
         <!-- Brand -->
         <div class="lg:col-span-2 flex flex-col gap-4">
           <div class="flex items-center gap-3">
@@ -27,10 +27,20 @@
           <ul class="flex flex-col gap-2.5">
             <li v-for="link in navLinks" :key="link.id">
               <a
-                :href="'#' + link.id"
+                :href="linkHref(link.id)"
                 class="text-white/40 hover:text-brand text-sm transition-colors"
               >
                 {{ link.label }}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white/40 hover:text-brand text-sm transition-colors"
+              >
+                Политика в отношении обработки персональных данных
               </a>
             </li>
           </ul>
@@ -53,6 +63,15 @@
             </li>
           </ul>
         </div>
+
+        <div>
+          <h4 class="font-semibold text-white text-sm mb-4">Реквизиты</h4>
+          <ul class="flex flex-col gap-2.5 text-white/40 text-sm">
+            <li>ИП Дзидзигури Л.А.</li>
+            <li>ИНН: 231909054698</li>
+            <li>ОГРНИП: 323237500212435</li>
+          </ul>
+        </div>
       </div>
 
       <!-- Bottom bar -->
@@ -66,6 +85,10 @@
 </template>
 
 <script setup>
+function linkHref(sectionId) {
+  return window.location.pathname === '/privacy' ? `/#${sectionId}` : `#${sectionId}`
+}
+
 const navLinks = [
   { id: 'about', label: 'О нас' },
   { id: 'coaches', label: 'Тренеры' },
