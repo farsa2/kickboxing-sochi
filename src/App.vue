@@ -13,7 +13,7 @@
       <GallerySection />
       <ContactSection />
     </template>
-    <FooterSection />
+    <FooterSection @navigate="scrollTo" />
   </div>
 </template>
 

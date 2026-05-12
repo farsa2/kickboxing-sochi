@@ -29,6 +29,7 @@
               <a
                 :href="linkHref(link.id)"
                 class="text-white/40 hover:text-brand text-sm transition-colors"
+                @click.prevent="handleNavigate(link.id)"
               >
                 {{ link.label }}
               </a>
@@ -85,6 +86,12 @@
 </template>
 
 <script setup>
+const emit = defineEmits(['navigate'])
+
+function handleNavigate(sectionId) {
+  emit('navigate', sectionId)
+}
+
 function linkHref(sectionId) {
   return window.location.pathname === '/privacy' ? `/#${sectionId}` : `#${sectionId}`
 }
