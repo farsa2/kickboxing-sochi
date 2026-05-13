@@ -53,7 +53,7 @@
               <span class="font-semibold text-[10px] tracking-wide">MAX</span>
             </a>
             <a
-              href="https://t.me/+JWassKu4DTXsOTqy"
+              href="https://t.me/AkademyKickboxing"
               target="_blank"
               rel="noopener noreferrer"
               class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-sky-400 hover:text-sky-300 hover:border-sky-400/40 transition-all"

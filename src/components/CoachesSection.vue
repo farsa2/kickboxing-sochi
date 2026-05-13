@@ -103,17 +103,17 @@ const swiperBreakpoints = {
 const trainers = [
   {
     name: 'Лаша Амиранович',
-    video: '/videos/coach-1.mp4',
+    video: '/videos/coach-1-hq.mp4',
     poster: '/images/coach-poster-1.png',
   },
   {
     name: 'Кристина Субуханкулова',
-    video: '/videos/coach-2.mp4',
+    video: '/videos/coach-2-hq.mp4',
     poster: '/images/coach-poster-2.png',
   },
   {
     name: 'Елена Сидорова',
-    video: '/videos/coach-3.mp4',
+    video: '/videos/coach-3-hq.mp4',
     poster: '/images/coach-poster-3.png',
   },
   {
