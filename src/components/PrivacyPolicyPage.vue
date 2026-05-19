@@ -31,8 +31,8 @@
                 info@kickboxing-sochi.ru
               </a><br>
               Телефон:
-              <a href="tel:+79183098201" class="text-brand hover:text-brand-light underline underline-offset-4">
-                +7 (918) 309-82-01
+              <a href="tel:+79676315191" class="text-brand hover:text-brand-light underline underline-offset-4">
+                +7 (967) 631-51-91
               </a>
             </p>
             <p>
