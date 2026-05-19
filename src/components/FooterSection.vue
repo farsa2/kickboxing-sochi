@@ -53,8 +53,8 @@
           <ul class="flex flex-col gap-2.5 text-white/40 text-sm">
           <li>г. Сочи, Транспортная ул., д. 2</li>
             <li>
-            <a href="tel:+79183098201" class="hover:text-brand transition-colors">
-              +7 (918) 309-82-01
+            <a href="tel:+79676315191" class="hover:text-brand transition-colors">
+              +7 (967) 631-51-91
               </a>
             </li>
             <li>
