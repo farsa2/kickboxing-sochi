@@ -32,8 +32,11 @@
         >
           <img
             :src="galleryImages[0].src"
+            :srcset="galleryImages[0].srcset"
+            sizes="(max-width: 767px) 100vw, (max-width: 1279px) 100vw, 58vw"
             :alt="galleryImages[0].alt"
             loading="lazy"
+            decoding="async"
             class="gallery-image"
           />
           <div class="gallery-overlay">
@@ -57,8 +60,11 @@
           >
             <img
               :src="image.src"
+              :srcset="image.srcset"
+              sizes="(max-width: 767px) 50vw, (max-width: 1279px) 50vw, 20vw"
               :alt="image.alt"
               loading="lazy"
+              decoding="async"
               class="gallery-image"
             />
             <div class="gallery-overlay">
@@ -84,8 +90,11 @@
         >
           <img
             :src="image.src"
+            :srcset="image.srcset"
+            sizes="(max-width: 767px) 50vw, (max-width: 1279px) 33vw, 20vw"
             :alt="image.alt"
             loading="lazy"
+            decoding="async"
             class="gallery-image"
           />
           <div class="gallery-overlay">
@@ -136,7 +145,11 @@
 
             <img
               :src="galleryImages[currentImage].src"
+              :srcset="galleryImages[currentImage].srcset"
+              sizes="100vw"
               :alt="galleryImages[currentImage].alt"
+              loading="eager"
+              decoding="async"
               class="max-w-full max-h-[85vh] object-contain rounded-lg"
             />
 
@@ -168,16 +181,56 @@ const lightboxOpen = ref(false)
 const currentImage = ref(0)
 
 const galleryImages = [
-  { src: '/images/gallery-premium/gallery-01.jpg', alt: 'Интенсивный спарринг в ринге' },
-  { src: '/images/gallery-premium/gallery-02.jpg', alt: 'Детская тренировка с работой в паре' },
-  { src: '/images/gallery-premium/gallery-03.jpg', alt: 'Женская группа: отработка ударной техники' },
-  { src: '/images/gallery-premium/gallery-04.jpg', alt: 'Групповая функциональная подготовка детей' },
-  { src: '/images/gallery-premium/gallery-05.jpg', alt: 'Соревновательный спарринг при зрителях' },
-  { src: '/images/gallery-premium/gallery-06.jpg', alt: 'Борцовская техника: тренер и ученик' },
-  { src: '/images/gallery-premium/gallery-07.jpg', alt: 'Детская активность и координация на площадке' },
-  { src: '/images/gallery-premium/gallery-08.jpg', alt: 'Тренер работает с учеником на поле' },
-  { src: '/images/gallery-premium/gallery-09.jpg', alt: 'Эмоции после победы в ринге' },
-  { src: '/images/gallery-premium/gallery-10.jpg', alt: 'Боевой крупный план во время поединка' },
+  {
+    src: '/images/gallery-premium/gallery-01-960.webp',
+    srcset: '/images/gallery-premium/gallery-01-480.webp 480w, /images/gallery-premium/gallery-01-960.webp 960w',
+    alt: 'Интенсивный спарринг в ринге',
+  },
+  {
+    src: '/images/gallery-premium/gallery-02-960.webp',
+    srcset: '/images/gallery-premium/gallery-02-480.webp 480w, /images/gallery-premium/gallery-02-960.webp 960w',
+    alt: 'Детская тренировка с работой в паре',
+  },
+  {
+    src: '/images/gallery-premium/gallery-03-960.webp',
+    srcset: '/images/gallery-premium/gallery-03-480.webp 480w, /images/gallery-premium/gallery-03-960.webp 960w',
+    alt: 'Женская группа: отработка ударной техники',
+  },
+  {
+    src: '/images/gallery-premium/gallery-04-960.webp',
+    srcset: '/images/gallery-premium/gallery-04-480.webp 480w, /images/gallery-premium/gallery-04-960.webp 960w',
+    alt: 'Групповая функциональная подготовка детей',
+  },
+  {
+    src: '/images/gallery-premium/gallery-05-960.webp',
+    srcset: '/images/gallery-premium/gallery-05-480.webp 480w, /images/gallery-premium/gallery-05-960.webp 960w',
+    alt: 'Соревновательный спарринг при зрителях',
+  },
+  {
+    src: '/images/gallery-premium/gallery-06-960.webp',
+    srcset: '/images/gallery-premium/gallery-06-480.webp 480w, /images/gallery-premium/gallery-06-960.webp 960w',
+    alt: 'Борцовская техника: тренер и ученик',
+  },
+  {
+    src: '/images/gallery-premium/gallery-07-960.webp',
+    srcset: '/images/gallery-premium/gallery-07-480.webp 480w, /images/gallery-premium/gallery-07-960.webp 960w',
+    alt: 'Детская активность и координация на площадке',
+  },
+  {
+    src: '/images/gallery-premium/gallery-08-960.webp',
+    srcset: '/images/gallery-premium/gallery-08-480.webp 480w, /images/gallery-premium/gallery-08-960.webp 960w',
+    alt: 'Тренер работает с учеником на поле',
+  },
+  {
+    src: '/images/gallery-premium/gallery-09-960.webp',
+    srcset: '/images/gallery-premium/gallery-09-480.webp 480w, /images/gallery-premium/gallery-09-960.webp 960w',
+    alt: 'Эмоции после победы в ринге',
+  },
+  {
+    src: '/images/gallery-premium/gallery-10-960.webp',
+    srcset: '/images/gallery-premium/gallery-10-480.webp 480w, /images/gallery-premium/gallery-10-960.webp 960w',
+    alt: 'Боевой крупный план во время поединка',
+  },
 ]
 
 const sideImages = computed(() => galleryImages.slice(1, 5).map((image, idx) => ({

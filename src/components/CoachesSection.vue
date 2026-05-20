@@ -45,18 +45,18 @@
           @resize="handleSlideChange"
         >
           <SwiperSlide
-            v-for="coach in trainers"
+            v-for="(coach, index) in trainers"
             :key="coach.name"
             class="coach-slide"
           >
             <article class="coach-card">
               <video
-                :src="coach.video"
+                :src="shouldLoadVideo(index) ? coach.video : undefined"
                 :poster="coach.poster"
                 loop
                 muted
                 playsinline
-                preload="metadata"
+                :preload="shouldPrioritizeVideo(index) ? 'metadata' : 'none'"
                 class="coach-media"
               />
             </article>
@@ -70,6 +70,7 @@
 <script setup>
 import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { onMounted, ref } from 'vue'
 import { useSectionReveal } from '../composables/useSectionReveal'
 
 import 'swiper/css'
@@ -104,39 +105,68 @@ const trainers = [
   {
     name: 'Лаша Амиранович',
     video: '/videos/coach-1-hq.mp4',
-    poster: '/images/coach-poster-1.png',
+    poster: '/images/coach-poster-1-960.webp',
   },
   {
     name: 'Кристина Субуханкулова',
     video: '/videos/coach-2-hq.mp4',
-    poster: '/images/coach-poster-2.png',
+    poster: '/images/coach-poster-2-960.webp',
   },
   {
     name: 'Елена Сидорова',
     video: '/videos/coach-3-hq.mp4',
-    poster: '/images/coach-poster-3.png',
+    poster: '/images/coach-poster-3-960.webp',
   },
   {
     name: 'Георгий Яковлев',
     video: '/videos/optimized/video-1-web.mp4',
-    poster: '/images/coach-poster-4.png',
+    poster: '/images/coach-poster-4-960.webp',
   },
   {
     name: 'Константин Исаков',
     video: '/videos/optimized/video-2-web.mp4',
-    poster: '/images/coach-poster-5.png',
+    poster: '/images/coach-poster-5-960.webp',
   },
   {
     name: 'Юра Чернышев',
     video: '/videos/optimized/video-3-web.mp4',
-    poster: '/images/coach-poster-6.png',
+    poster: '/images/coach-poster-6-960.webp',
   },
   {
     name: 'Максим Силин',
     video: '/videos/optimized/video-4-web.mp4',
-    poster: '/images/coach-poster-7.png',
+    poster: '/images/coach-poster-7-960.webp',
   },
 ]
+
+const eagerVideoIndexes = ref(new Set([0, 1, trainers.length - 1]))
+const isMobileViewport = ref(false)
+
+onMounted(() => {
+  isMobileViewport.value = window.matchMedia('(max-width: 768px)').matches
+})
+
+function markVideoPriority(index) {
+  const safeIndex = ((index % trainers.length) + trainers.length) % trainers.length
+  const prevIndex = (safeIndex - 1 + trainers.length) % trainers.length
+  const nextIndex = (safeIndex + 1) % trainers.length
+
+  const nextSet = new Set(eagerVideoIndexes.value)
+  nextSet.add(safeIndex)
+  nextSet.add(prevIndex)
+  nextSet.add(nextIndex)
+  eagerVideoIndexes.value = nextSet
+}
+
+function shouldLoadVideo(index) {
+  if (isMobileViewport.value) return false
+  return eagerVideoIndexes.value.has(index)
+}
+
+function shouldPrioritizeVideo(index) {
+  if (isMobileViewport.value) return false
+  return eagerVideoIndexes.value.has(index)
+}
 
 function syncVideoPlayback(swiper) {
   if (!swiper?.el) return
@@ -161,10 +191,12 @@ function syncVideoPlayback(swiper) {
 }
 
 function handleSwiperInit(swiper) {
+  markVideoPriority(swiper?.realIndex ?? 0)
   syncVideoPlayback(swiper)
 }
 
 function handleSlideChange(swiper) {
+  markVideoPriority(swiper?.realIndex ?? 0)
   syncVideoPlayback(swiper)
 }
 </script>

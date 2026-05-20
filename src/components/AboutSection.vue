@@ -17,7 +17,7 @@
               muted
               playsinline
               preload="none"
-              poster="/images/about.jpg"
+              poster="/images/about-960.webp"
               class="w-full aspect-[4/3] object-cover about-media"
             >
               <source src="/videos/about-mobile.mp4" media="(max-width: 768px)" type="video/mp4" />
@@ -25,7 +25,9 @@
             </video>
             <img
               v-else
-              src="/images/about.jpg"
+              src="/images/about-960.webp"
+              srcset="/images/about-640.webp 640w, /images/about-960.webp 960w, /images/about-1280.webp 1280w"
+              sizes="(max-width: 1023px) 100vw, 50vw"
               alt="Зал Академии Кикбоксинга"
               loading="lazy"
               decoding="async"
