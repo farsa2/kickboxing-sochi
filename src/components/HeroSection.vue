@@ -3,8 +3,13 @@
     <!-- Mobile background -->
     <div class="absolute inset-0 lg:hidden">
       <img
-        src="/images/hero-bg-bag.jpg"
+        src="/images/hero-bg-bag-1280.webp"
+        srcset="/images/hero-bg-bag-768.webp 768w, /images/hero-bg-bag-1280.webp 1280w, /images/hero-bg-bag-1920.webp 1920w"
+        sizes="100vw"
         alt=""
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
         class="w-full h-full object-cover object-[65%_center] brightness-125 contrast-125 saturate-[1.25]"
       />
       <div class="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/25" />
@@ -19,8 +24,13 @@
         :style="{ transform: parallaxTransform }"
       >
         <img
-          src="/images/hero-bg-bag.jpg"
+          src="/images/hero-bg-bag-1280.webp"
+          srcset="/images/hero-bg-bag-768.webp 768w, /images/hero-bg-bag-1280.webp 1280w, /images/hero-bg-bag-1920.webp 1920w"
+          sizes="48vw"
           alt=""
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
           class="w-full h-full object-cover object-center brightness-115 contrast-125 saturate-[1.3]"
         />
       </div>
