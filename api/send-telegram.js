@@ -22,7 +22,13 @@ export default async function handler(req, res) {
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_CHAT_ID
+  const chatId = process.env.
+
+  console.log('=== TELEGRAM DEBUG ===')
+  console.log('CHAT_ID:', chatId)
+  console.log('TOKEN_EXISTS:', !!token)
+  console.log('BODY:', req.body)
+  console.log('======================')
 
   if (!token || !chatId) {
     return res.status(500).json({ ok: false, error: 'Telegram not configured' })
@@ -52,6 +58,8 @@ export default async function handler(req, res) {
     })
 
     const data = await response.json()
+
+    console.log('TELEGRAM RESPONSE:', JSON.stringify(data))
 
     if (!data.ok) {
       return res.status(400).json({
