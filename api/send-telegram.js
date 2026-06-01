@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.
+  const chatId = process.env.TELEGRAM_CHAT_ID
 
   console.log('=== TELEGRAM DEBUG ===')
   console.log('CHAT_ID:', chatId)
