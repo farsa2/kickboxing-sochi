@@ -23,6 +23,11 @@ export default async function handler(req, res) {
 
   const token = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_CHAT_ID
+  
+  return res.status(200).json({
+    ok: true,
+    debugChatId: chatId
+  })
 
   if (!token || !chatId) {
     return res.status(500).json({ ok: false, error: 'Telegram not configured' })
