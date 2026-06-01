@@ -53,9 +53,11 @@
               <video
                 :src="shouldLoadVideo(index) ? coach.video : undefined"
                 :poster="coach.poster"
+                autoplay
                 loop
                 muted
                 playsinline
+                webkit-playsinline
                 :preload="shouldPrioritizeVideo(index) ? 'metadata' : 'none'"
                 class="coach-media"
               />
@@ -70,7 +72,7 @@
 <script setup>
 import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useSectionReveal } from '../composables/useSectionReveal'
 
 import 'swiper/css'
@@ -140,11 +142,6 @@ const trainers = [
 ]
 
 const eagerVideoIndexes = ref(new Set([0, 1, trainers.length - 1]))
-const isMobileViewport = ref(false)
-
-onMounted(() => {
-  isMobileViewport.value = window.matchMedia('(max-width: 768px)').matches
-})
 
 function markVideoPriority(index) {
   const safeIndex = ((index % trainers.length) + trainers.length) % trainers.length
@@ -159,12 +156,10 @@ function markVideoPriority(index) {
 }
 
 function shouldLoadVideo(index) {
-  if (isMobileViewport.value) return false
   return eagerVideoIndexes.value.has(index)
 }
 
 function shouldPrioritizeVideo(index) {
-  if (isMobileViewport.value) return false
   return eagerVideoIndexes.value.has(index)
 }
 
